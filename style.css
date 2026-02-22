@@ -72,6 +72,7 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   position: relative;
+  overflow: hidden;
 }
 
 p {
@@ -118,12 +119,15 @@ h1 {
 nav {
   border: 1px solid var(--secondary-color);
   position: fixed;
+  height: 90px;
+  z-index: 100;
   top: 0;
   left: 0;
   display: flex;
   align-items: center;
   width: 100%;
   padding: var(--padding) var(--paddingMd);
+  background: var(--background-color);
 
   & .left {
     display: flex;
@@ -177,8 +181,11 @@ nav {
 
 footer {
   position: fixed;
+  background: var(--background-color);
+  height: 106px;
   bottom: 0;
   left: 0;
+  z-index: 100;
   display: flex;
   width: 100%;
   padding: var(--padding) var(--paddingMd);
@@ -214,9 +221,22 @@ footer {
     gap: var(--gapSm);
 
     & .top {
-      & .btn span {
-        display: block;
-        align-items: center;
+      display: flex;
+      align-items: center;
+
+      & .btn-play {
+        padding: 0;
+
+        .play {
+          font-size: 42px !important;
+        }
+      }
+
+      & .btn {
+        & span {
+          display: block;
+          align-items: center;
+        }
       }
     }
 
@@ -243,6 +263,11 @@ footer {
     align-items: center;
     gap: var(--gapSm);
 
+    & .btn span {
+      display: block;
+      align-items: center;
+    }
+
     & .volume {
       display: flex;
       align-items: center;
@@ -265,4 +290,33 @@ footer {
   }
 }
 
+main {
+  width: 100%;
+  position: relative;
+  min-height: calc(100vh - 196px);
+  margin-top: 90px;
+  margin-bottom: 106px;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-areas: "left right";
+  padding: var(--padding);
+  gap: var(--gap);
 
+  & .left {
+    grid-area: left;
+    background-color: var(--secondary-color);
+    color: black;
+    border-radius: var(--borderRadius);
+
+    & button {
+      background: white;
+      color: black;
+    }
+  }
+
+  & .right {
+    grid-area: right;
+    background-color: var(--secondary-color);
+    border-radius: var(--borderRadius);
+  }
+}
