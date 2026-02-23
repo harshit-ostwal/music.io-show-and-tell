@@ -111,11 +111,56 @@
             <div class="volume-level"></div>
           </div>
         </div>
-        <button class="btn">
+        <button class="btn btn-fullscreen">
           <span class="material-symbols-outlined">fullscreen</span>
         </button>
       </div>
     </footer>
+
+    <div class="fullscreen-overlay" id="fullscreen-overlay">
+      <div class="fullscreen-bg"></div>
+      <div class="fullscreen-content">
+        <button class="btn fullscreen-close">
+          <span class="material-symbols-outlined">keyboard_arrow_down</span>
+        </button>
+        <p class="fullscreen-label">Now Playing</p>
+        <div class="fullscreen-art">
+          <img id="fs-cover" src="" alt="" />
+        </div>
+        <div class="fullscreen-info">
+          <div class="fullscreen-text">
+            <h3 id="fs-title"></h3>
+            <h6 id="fs-artist"></h6>
+          </div>
+        </div>
+        <div class="fullscreen-progress">
+          <div class="fs-progress-bar-wrap" id="fs-progress">
+            <div class="fs-progress-bar" id="fs-progress-bar"></div>
+          </div>
+          <div class="fs-times">
+            <span id="fs-start">0:00</span>
+            <span id="fs-end">0:00</span>
+          </div>
+        </div>
+        <div class="fullscreen-controls">
+          <button class="btn btn-shuffle fs-shuffle">
+            <span class="material-symbols-outlined">alt_route</span>
+          </button>
+          <button class="btn fs-prev">
+            <span class="material-symbols-outlined">first_page</span>
+          </button>
+          <button class="btn fs-play btn-play">
+            <span class="material-symbols-outlined play">motion_play</span>
+          </button>
+          <button class="btn fs-next">
+            <span class="material-symbols-outlined">last_page</span>
+          </button>
+          <button class="btn btn-loop fs-loop">
+            <span class="material-symbols-outlined">rotate_left</span>
+          </button>
+        </div>
+      </div>
+    </div>
 
     <script src="music.js"></script>
     <script src="script.js"></script>

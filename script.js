@@ -527,9 +527,8 @@ function playOnCard() {
 
 function controlPlayPause() {
   const audio = document.getElementById("audio-player");
-  const playBtn = document.querySelector(".btn-play");
 
-  if (playBtn) {
+  document.querySelectorAll(".btn-play").forEach((playBtn) => {
     playBtn.addEventListener("click", () => {
       if (audio.src) {
         if (audio.paused) {
@@ -541,7 +540,7 @@ function controlPlayPause() {
         }
       }
     });
-  }
+  });
 
   audio.addEventListener("ended", () => {
     updatePlayButton(false);
@@ -661,14 +660,9 @@ function controlPlayPause() {
 }
 
 function updatePlayButton(isPlaying) {
-  const playIcon = document.querySelector(".btn-play span");
-  if (playIcon) {
-    if (isPlaying) {
-      playIcon.textContent = "pause";
-    } else {
-      playIcon.textContent = "motion_play";
-    }
-  }
+  document.querySelectorAll(".btn-play span").forEach((icon) => {
+    icon.textContent = isPlaying ? "pause" : "motion_play";
+  });
 }
 
 function initAudio() {
@@ -907,6 +901,119 @@ function prevTrack() {
   }
 }
 
+function controlFullscreen() {
+  const overlay = document.getElementById("fullscreen-overlay");
+  const openBtn = document.querySelector(".btn-fullscreen");
+  const closeBtn = document.querySelector(".fullscreen-close");
+  const footerImg = document.querySelector("footer .left img");
+  const fsCover = document.getElementById("fs-cover");
+  const fsBg = document.querySelector(".fullscreen-bg");
+  const fsTitle = document.getElementById("fs-title");
+  const fsArtist = document.getElementById("fs-artist");
+  const fsStart = document.getElementById("fs-start");
+  const fsEnd = document.getElementById("fs-end");
+  const fsProgressWrap = document.getElementById("fs-progress");
+  const fsProgressBar = document.getElementById("fs-progress-bar");
+  const audio = document.getElementById("audio-player");
+
+  function syncOverlay() {
+    const lastPlayed = JSON.parse(localStorage.getItem("lastPlayed"));
+    if (!lastPlayed) return;
+    fsCover.src = lastPlayed.coverImg || "";
+    fsBg.style.backgroundImage = `url(${lastPlayed.coverImg || ""})`;
+    fsTitle.textContent = lastPlayed.title || "";
+    fsArtist.textContent = lastPlayed.artist || "";
+  }
+
+  function open() {
+    syncOverlay();
+    overlay.classList.add("open");
+  }
+
+  function close() {
+    overlay.classList.remove("open");
+  }
+
+  if (openBtn) openBtn.addEventListener("click", open);
+  if (footerImg) footerImg.addEventListener("click", open);
+  if (closeBtn) closeBtn.addEventListener("click", close);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
+
+  // Sync cover/title whenever trackLoad runs by observing footer img src changes
+  const observer = new MutationObserver(() => {
+    if (overlay.classList.contains("open")) syncOverlay();
+  });
+  if (footerImg)
+    observer.observe(footerImg, { attributes: true, attributeFilter: ["src"] });
+
+  // Sync progress bar
+  audio.addEventListener("timeupdate", () => {
+    if (!audio.duration) return;
+    const pct = (audio.currentTime / audio.duration) * 100;
+    fsProgressBar.style.width = `${pct}%`;
+    const fmt = (s) => {
+      if (!s || isNaN(s)) return "0:00";
+      const m = Math.floor(s / 60),
+        sec = Math.floor(s % 60);
+      return `${m}:${sec < 10 ? "0" : ""}${sec}`;
+    };
+    fsStart.textContent = fmt(audio.currentTime);
+  });
+
+  audio.addEventListener("loadedmetadata", () => {
+    const fmt = (s) => {
+      if (!s || isNaN(s)) return "0:00";
+      const m = Math.floor(s / 60),
+        sec = Math.floor(s % 60);
+      return `${m}:${sec < 10 ? "0" : ""}${sec}`;
+    };
+    fsEnd.textContent = fmt(audio.duration);
+  });
+
+  // Seekable progress in overlay
+  fsProgressWrap.addEventListener("click", (e) => {
+    if (!audio.src) return;
+    const rect = fsProgressWrap.getBoundingClientRect();
+    audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+  });
+
+  // Mirror shuffle/loop active state inside overlay
+  const fsShuffle = overlay.querySelector(".fs-shuffle");
+  const fsLoop = overlay.querySelector(".fs-loop");
+  const mainShuffle = document.querySelector("footer .btn-shuffle");
+  const mainLoop = document.querySelector("footer .btn-loop");
+
+  if (fsShuffle && mainShuffle) {
+    if (mainShuffle.classList.contains("active"))
+      fsShuffle.classList.add("active");
+    fsShuffle.addEventListener("click", () => {
+      mainShuffle.click();
+      fsShuffle.classList.toggle(
+        "active",
+        mainShuffle.classList.contains("active"),
+      );
+    });
+  }
+  if (fsLoop && mainLoop) {
+    if (mainLoop.classList.contains("active")) fsLoop.classList.add("active");
+    fsLoop.addEventListener("click", () => {
+      mainLoop.click();
+      fsLoop.classList.toggle("active", mainLoop.classList.contains("active"));
+    });
+  }
+
+  // Mirror prev/next/play from overlay
+  overlay
+    .querySelector(".fs-prev")
+    ?.addEventListener("click", () => document.querySelector(".prev")?.click());
+  overlay
+    .querySelector(".fs-next")
+    ?.addEventListener("click", () => document.querySelector(".next")?.click());
+}
+
 function controlShuffle() {
   const shuffleBtn = document.querySelector(".btn-shuffle");
   if (!shuffleBtn) return;
@@ -947,3 +1054,4 @@ nextTrack();
 prevTrack();
 controlShuffle();
 controlLoop();
+controlFullscreen();
