@@ -243,6 +243,25 @@ footer {
         }
       }
 
+      & .btn-shuffle.active,
+      & .btn-loop.active {
+        color: #1db954;
+        position: relative;
+      }
+
+      & .btn-shuffle.active::after,
+      & .btn-loop.active::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: #1db954;
+      }
+
       & .btn {
         & span {
           display: block;

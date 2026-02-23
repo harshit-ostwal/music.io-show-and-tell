@@ -546,13 +546,23 @@ function controlPlayPause() {
   audio.addEventListener("ended", () => {
     updatePlayButton(false);
 
+    const loopEnabled = localStorage.getItem("loopEnabled") === "true";
+    if (loopEnabled) {
+      audio.currentTime = 0;
+      audio.play();
+      updatePlayButton(true);
+      return;
+    }
+
+    const shuffleEnabled = localStorage.getItem("shuffleEnabled") === "true";
     const lastPlayed = JSON.parse(localStorage.getItem("lastPlayed"));
     const currentAlbum = JSON.parse(localStorage.getItem("currentAlbum"));
     const currentArtist = JSON.parse(localStorage.getItem("currentArtist"));
 
     if (currentArtist && lastPlayed && lastPlayed.artistId) {
-      let nextSongIdx =
-        (lastPlayed.artistSongIdx + 1) % currentArtist.songs.length;
+      let nextSongIdx = shuffleEnabled
+        ? Math.floor(Math.random() * currentArtist.songs.length)
+        : (lastPlayed.artistSongIdx + 1) % currentArtist.songs.length;
       let nextSong = currentArtist.songs[nextSongIdx];
 
       let songDetails = {
@@ -576,8 +586,9 @@ function controlPlayPause() {
       audio.play();
       updatePlayButton(true);
     } else if (currentAlbum && lastPlayed && lastPlayed.albumId) {
-      let nextSongIdx =
-        (lastPlayed.albumSongIdx + 1) % currentAlbum.songs.length;
+      let nextSongIdx = shuffleEnabled
+        ? Math.floor(Math.random() * currentAlbum.songs.length)
+        : (lastPlayed.albumSongIdx + 1) % currentAlbum.songs.length;
       let nextSong = currentAlbum.songs[nextSongIdx];
 
       let songDetails = {
@@ -602,12 +613,18 @@ function controlPlayPause() {
       updatePlayButton(true);
     } else if (lastPlayed && lastPlayed.sectionIdx !== undefined) {
       let currentSection = CardData[lastPlayed.sectionIdx];
-      let nextItemIdx = lastPlayed.itemIdx + 1;
-      let nextSectionIdx = lastPlayed.sectionIdx;
+      let nextItemIdx, nextSectionIdx;
 
-      if (nextItemIdx >= currentSection.items.length) {
-        nextItemIdx = 0;
-        nextSectionIdx = (lastPlayed.sectionIdx + 1) % CardData.length;
+      if (shuffleEnabled) {
+        nextSectionIdx = lastPlayed.sectionIdx;
+        nextItemIdx = Math.floor(Math.random() * currentSection.items.length);
+      } else {
+        nextItemIdx = lastPlayed.itemIdx + 1;
+        nextSectionIdx = lastPlayed.sectionIdx;
+        if (nextItemIdx >= currentSection.items.length) {
+          nextItemIdx = 0;
+          nextSectionIdx = (lastPlayed.sectionIdx + 1) % CardData.length;
+        }
       }
 
       const nextSection = CardData[nextSectionIdx];
@@ -673,13 +690,15 @@ function nextTrack() {
 
   if (nextBtn) {
     nextBtn.addEventListener("click", () => {
+      const shuffleEnabled = localStorage.getItem("shuffleEnabled") === "true";
       const lastPlayed = JSON.parse(localStorage.getItem("lastPlayed"));
       const currentAlbum = JSON.parse(localStorage.getItem("currentAlbum"));
       const currentArtist = JSON.parse(localStorage.getItem("currentArtist"));
 
       if (currentArtist && lastPlayed && lastPlayed.artistId) {
-        let nextSongIdx =
-          (lastPlayed.artistSongIdx + 1) % currentArtist.songs.length;
+        let nextSongIdx = shuffleEnabled
+          ? Math.floor(Math.random() * currentArtist.songs.length)
+          : (lastPlayed.artistSongIdx + 1) % currentArtist.songs.length;
         let nextSong = currentArtist.songs[nextSongIdx];
 
         let songDetails = {
@@ -703,8 +722,9 @@ function nextTrack() {
         audio.play();
         updatePlayButton(true);
       } else if (currentAlbum && lastPlayed && lastPlayed.albumId) {
-        let nextSongIdx =
-          (lastPlayed.albumSongIdx + 1) % currentAlbum.songs.length;
+        let nextSongIdx = shuffleEnabled
+          ? Math.floor(Math.random() * currentAlbum.songs.length)
+          : (lastPlayed.albumSongIdx + 1) % currentAlbum.songs.length;
         let nextSong = currentAlbum.songs[nextSongIdx];
 
         let songDetails = {
@@ -729,12 +749,18 @@ function nextTrack() {
         updatePlayButton(true);
       } else if (lastPlayed && lastPlayed.sectionIdx !== undefined) {
         let currentSection = CardData[lastPlayed.sectionIdx];
-        let nextItemIdx = lastPlayed.itemIdx + 1;
-        let nextSectionIdx = lastPlayed.sectionIdx;
+        let nextItemIdx, nextSectionIdx;
 
-        if (nextItemIdx >= currentSection.items.length) {
-          nextItemIdx = 0;
-          nextSectionIdx = (lastPlayed.sectionIdx + 1) % CardData.length;
+        if (shuffleEnabled) {
+          nextSectionIdx = lastPlayed.sectionIdx;
+          nextItemIdx = Math.floor(Math.random() * currentSection.items.length);
+        } else {
+          nextItemIdx = lastPlayed.itemIdx + 1;
+          nextSectionIdx = lastPlayed.sectionIdx;
+          if (nextItemIdx >= currentSection.items.length) {
+            nextItemIdx = 0;
+            nextSectionIdx = (lastPlayed.sectionIdx + 1) % CardData.length;
+          }
         }
 
         const nextSection = CardData[nextSectionIdx];
@@ -881,6 +907,34 @@ function prevTrack() {
   }
 }
 
+function controlShuffle() {
+  const shuffleBtn = document.querySelector(".btn-shuffle");
+  if (!shuffleBtn) return;
+
+  const isActive = localStorage.getItem("shuffleEnabled") === "true";
+  if (isActive) shuffleBtn.classList.add("active");
+
+  shuffleBtn.addEventListener("click", () => {
+    const current = localStorage.getItem("shuffleEnabled") === "true";
+    localStorage.setItem("shuffleEnabled", !current);
+    shuffleBtn.classList.toggle("active", !current);
+  });
+}
+
+function controlLoop() {
+  const loopBtn = document.querySelector(".btn-loop");
+  if (!loopBtn) return;
+
+  const isActive = localStorage.getItem("loopEnabled") === "true";
+  if (isActive) loopBtn.classList.add("active");
+
+  loopBtn.addEventListener("click", () => {
+    const current = localStorage.getItem("loopEnabled") === "true";
+    localStorage.setItem("loopEnabled", !current);
+    loopBtn.classList.toggle("active", !current);
+  });
+}
+
 createCards();
 updateRecentlyPlayed();
 playOnCard();
@@ -891,3 +945,5 @@ controlVolume();
 controlPlayPause();
 nextTrack();
 prevTrack();
+controlShuffle();
+controlLoop();
