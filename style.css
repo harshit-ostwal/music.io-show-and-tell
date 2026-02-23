@@ -22,6 +22,7 @@
   --text-color: #ffffff;
   --muted-background-color: #333333;
   --muted-text-color: #aaaaaa;
+  --primary-background-color: #1db954;
 
   --borderRadiusSm: 8px;
   --borderRadius: 12px;
@@ -63,6 +64,10 @@
   font-weight: 400;
   scrollbar-width: none;
   scroll-behavior: smooth;
+}
+
+#audio-player {
+  display: none;
 }
 
 html,
@@ -117,7 +122,6 @@ h1 {
 }
 
 nav {
-  border: 1px solid var(--secondary-color);
   position: fixed;
   height: 90px;
   z-index: 100;
@@ -190,7 +194,6 @@ footer {
   width: 100%;
   padding: var(--padding) var(--paddingMd);
   gap: var(--gapSm);
-  border: 1px solid var(--secondary-color);
 
   & .left {
     display: flex;
@@ -252,6 +255,16 @@ footer {
         height: 8px;
         background: var(--muted-background-color);
         border-radius: var(--borderRadiusXL);
+        position: relative;
+        cursor: pointer;
+
+        & .progress-bar {
+          height: 100%;
+          background: var(--text-color);
+          border-radius: var(--borderRadiusXL);
+          width: 0%;
+          transition-duration: 500ms;
+        }
       }
     }
   }
@@ -273,9 +286,13 @@ footer {
       align-items: center;
       gap: var(--gapSm);
 
-      & .btn span {
-        display: block;
-        align-items: center;
+      & .btn {
+        cursor: pointer;
+
+        & span {
+          display: block;
+          align-items: center;
+        }
       }
 
       & .volume-bar {
@@ -285,6 +302,16 @@ footer {
         height: 8px;
         background: var(--muted-background-color);
         border-radius: var(--borderRadiusXL);
+        position: relative;
+        cursor: pointer;
+
+        & .volume-level {
+          height: 100%;
+          background: var(--text-color);
+          border-radius: var(--borderRadiusXL);
+          width: 50%;
+          transition-duration: 500ms;
+        }
       }
     }
   }
@@ -292,15 +319,15 @@ footer {
 
 main {
   width: 100%;
-  position: relative;
   min-height: calc(100vh - 196px);
   margin-top: 90px;
   margin-bottom: 106px;
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-areas: "left right";
-  padding: var(--padding);
   gap: var(--gap);
+  overflow: hidden;
+  padding: 0 var(--paddingSm);
 
   & .left {
     grid-area: left;
@@ -318,5 +345,91 @@ main {
     grid-area: right;
     background-color: var(--secondary-color);
     border-radius: var(--borderRadius);
+    padding: var(--paddingLg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    max-height: calc(100vh - 196px);
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    & .section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gapSm);
+      flex-shrink: 0;
+
+      & .section-container {
+        display: flex;
+        gap: var(--gapSm);
+        height: fit-content;
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        & .section-content {
+          display: flex;
+          flex-direction: column;
+          padding: var(--padding);
+          gap: var(--gapSm);
+          border-radius: var(--borderRadius);
+          cursor: pointer;
+          flex-shrink: 0;
+
+          & .song-img {
+            position: relative;
+            width: 200px;
+            border-radius: var(--borderRadius);
+            overflow: hidden;
+            height: 200px;
+
+            & .btn {
+              background: var(--primary-background-color);
+              width: fit-content;
+              padding: var(--paddingSm);
+              position: absolute;
+              right: 5%;
+              bottom: 5%;
+              display: none;
+
+              & span {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--background-color);
+                font-size: 32px;
+              }
+            }
+          }
+
+          & .song-info {
+            display: flex;
+            flex-direction: column;
+
+            & p:nth-child(1) {
+              color: var(--text-color);
+            }
+
+            & p {
+              color: var(--muted-text-color);
+              max-width: 200px;
+              display: -webkit-box;
+              -webkit-line-clamp: 1;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+            }
+          }
+        }
+
+        & .section-content:hover {
+          background: var(--muted-background-color);
+          transition-duration: 500ms;
+
+          & .btn {
+            display: flex;
+          }
+        }
+      }
+    }
   }
 }
