@@ -1,3 +1,70 @@
+function createLibrary() {
+  const libraryList = document.getElementById("library-list");
+  if (!libraryList) return;
+
+  libraryList.innerHTML = "";
+
+  MusicData.forEach((artist) => {
+    let item = document.createElement("div");
+    item.classList.add("library-item");
+
+    let img = document.createElement("img");
+    img.src = artist.coverImg;
+    img.alt = artist.artist;
+
+    let info = document.createElement("div");
+    info.classList.add("library-item-info");
+
+    let name = document.createElement("p");
+    name.textContent = artist.artist;
+
+    let type = document.createElement("p");
+    type.textContent = "Artist";
+
+    info.append(name, type);
+    item.append(img, info);
+    libraryList.appendChild(item);
+
+    item.addEventListener("click", () => {
+      const audio = document.getElementById("audio-player");
+      let lastPlayed = JSON.parse(localStorage.getItem("lastPlayed"));
+      let resumeIdx = 0;
+
+      if (
+        lastPlayed &&
+        lastPlayed.artistId === artist.id &&
+        lastPlayed.artistSongIdx !== undefined
+      ) {
+        resumeIdx = lastPlayed.artistSongIdx;
+      }
+
+      let songToPlay = artist.songs[resumeIdx];
+      let songDetails = {
+        id: songToPlay.id,
+        title: songToPlay.title,
+        artist: songToPlay.description,
+        coverImg: songToPlay.coverImg,
+        audioSrc: songToPlay.audioSrc,
+        sectionIdx: 0,
+        itemIdx: resumeIdx,
+        artistId: artist.id,
+        artistSongIdx: resumeIdx,
+      };
+
+      localStorage.setItem("lastPlayed", JSON.stringify(songDetails));
+      localStorage.setItem("currentArtist", JSON.stringify(artist));
+      localStorage.removeItem("currentAlbum");
+      addToHistory(songDetails);
+      trackLoad();
+
+      audio.src = songDetails.audioSrc;
+      audio.load();
+      audio.play();
+      updatePlayButton(true);
+    });
+  });
+}
+
 function addToHistory(songDetails) {
   let history = JSON.parse(localStorage.getItem("playHistory")) || [];
 
@@ -942,14 +1009,12 @@ function controlFullscreen() {
     if (e.key === "Escape") close();
   });
 
-  // Sync cover/title whenever trackLoad runs by observing footer img src changes
   const observer = new MutationObserver(() => {
     if (overlay.classList.contains("open")) syncOverlay();
   });
   if (footerImg)
     observer.observe(footerImg, { attributes: true, attributeFilter: ["src"] });
 
-  // Sync progress bar
   audio.addEventListener("timeupdate", () => {
     if (!audio.duration) return;
     const pct = (audio.currentTime / audio.duration) * 100;
@@ -973,14 +1038,12 @@ function controlFullscreen() {
     fsEnd.textContent = fmt(audio.duration);
   });
 
-  // Seekable progress in overlay
   fsProgressWrap.addEventListener("click", (e) => {
     if (!audio.src) return;
     const rect = fsProgressWrap.getBoundingClientRect();
     audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
   });
 
-  // Mirror shuffle/loop active state inside overlay
   const fsShuffle = overlay.querySelector(".fs-shuffle");
   const fsLoop = overlay.querySelector(".fs-loop");
   const mainShuffle = document.querySelector("footer .btn-shuffle");
@@ -1005,7 +1068,6 @@ function controlFullscreen() {
     });
   }
 
-  // Mirror prev/next/play from overlay
   overlay
     .querySelector(".fs-prev")
     ?.addEventListener("click", () => document.querySelector(".prev")?.click());
@@ -1043,6 +1105,7 @@ function controlLoop() {
 }
 
 createCards();
+createLibrary();
 updateRecentlyPlayed();
 playOnCard();
 trackLoad();

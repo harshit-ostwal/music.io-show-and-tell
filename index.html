@@ -16,7 +16,7 @@
     <audio id="audio-player"></audio>
 
     <nav>
-      <div class="left"><h4>Music.io</h4></div>
+      <div class="left"><h3>Music.io</h3></div>
 
       <div class="center">
         <button class="material-symbols-outlined center-left">home</button>
@@ -40,7 +40,17 @@
     </nav>
 
     <main>
-      <div class="left">khkjh. kas dka skj</div>
+      <div class="left">
+        <div class="library">
+          <div class="library-header">
+            <h4 class="library-title">Your Library</h4>
+            <button class="btn library-add-btn">
+              <span class="material-symbols-outlined">add</span>
+            </button>
+          </div>
+          <div class="library-list" id="library-list"></div>
+        </div>
+      </div>
       <div class="right">
         <!-- <div class="section">
           <h4 class="section-title">Recently Played</h4>
@@ -117,7 +127,7 @@
       </div>
     </footer>
 
-    <div class="fullscreen-overlay" id="fullscreen-overlay">
+    <section class="fullscreen-overlay" id="fullscreen-overlay">
       <div class="fullscreen-bg"></div>
       <div class="fullscreen-content">
         <button class="btn fullscreen-close">
@@ -160,7 +170,7 @@
           </button>
         </div>
       </div>
-    </div>
+    </section>
 
     <script src="music.js"></script>
     <script src="script.js"></script>

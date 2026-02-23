@@ -358,13 +358,87 @@ main {
 
   & .left {
     grid-area: left;
+    padding: var(--paddingMd);
     background-color: var(--secondary-color);
-    color: black;
     border-radius: var(--borderRadius);
+    overflow-y: auto;
+    max-height: calc(100vh - 196px);
 
-    & button {
-      background: white;
-      color: black;
+    & .library {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gapMd);
+
+      & .library-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & h4 {
+          color: var(--text-color);
+        }
+
+        & .library-add-btn {
+          background: transparent;
+          color: var(--muted-text-color);
+          padding: 0;
+
+          &:hover {
+            color: var(--text-color);
+          }
+
+          & span {
+            display: flex;
+            align-items: center;
+            font-size: 32px;
+          }
+        }
+      }
+
+      & .library-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gapSm);
+      }
+
+      & .library-item {
+        display: flex;
+        align-items: center;
+        gap: var(--gap);
+        padding: var(--paddingSm);
+        border-radius: var(--borderRadiusSm);
+        cursor: pointer;
+
+        &:hover {
+          background: var(--muted-background-color);
+          transition-duration: 500ms;
+        }
+
+        & img {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          object-fit: cover;
+          flex-shrink: 0;
+        }
+
+        & .library-item-info {
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+
+          & p:nth-child(1) {
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          & p:nth-child(2) {
+            color: var(--muted-text-color);
+          }
+        }
+      }
     }
   }
 
@@ -372,7 +446,7 @@ main {
     grid-area: right;
     background-color: var(--secondary-color);
     border-radius: var(--borderRadius);
-    padding: var(--paddingLg);
+    padding: var(--paddingMd);
     display: flex;
     flex-direction: column;
     gap: var(--gap);
