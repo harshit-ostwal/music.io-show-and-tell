@@ -196,7 +196,7 @@ const MusicData = [
     id: 4,
     artist: "Hanumankind",
     coverImg:
-      "https://c.saavncdn.com/artists/Hanumankind_20240805114758_500x500.jpg",
+      "https://www.billboard.com/wp-content/uploads/2024/09/chartbreaker-hanumankind-bb14-samrat-nagar-1-1260.jpg",
     songs: [
       {
         id: 52483,
@@ -284,7 +284,7 @@ const MusicData = [
     id: 6,
     artist: "B Praak",
     coverImg:
-      "https://c.saavncdn.com/artists/B_Praak_001_20221226063922_500x500.jpg",
+      "https://media.assettype.com/deccanherald%2F2025-05-08%2Fwwr4f9rn%2FB-Praak.jpg",
     songs: [
       {
         id: 52910,
@@ -1744,7 +1744,7 @@ const CardData = [
         description: "Ghar Kab Aaoge - Border 2",
         artist: "Sunny Deol",
         coverImg:
-          "https://pagalnew.com/coverimages/ghar-kab-aaoge-border-2-sunny-500-500.jpg",
+          "https://pagalnew.com/coverimages/album/border-2-2026-500-500.jpg",
         audioSrc: "https://pagalnew.com/128-downloads/52850",
       },
       {
@@ -1775,59 +1775,60 @@ const CardData = [
         id: 1,
         artist: "Diljit Dosanjh",
         coverImg:
-          "https://images-r2-1.thebrag.com/tmn/uploads/image-1200x800-2025-08-28T123925.456-1.jpg",
+          "https://c.saavncdn.com/artists/Diljit_Dosanjh_005_20231025073054_500x500.jpg",
       },
       {
         id: 2,
         artist: "Arijit Singh",
         coverImg:
-          "https://c.saavncdn.com/artists/Arijit_Singh_002_20230323062147_500x500.jpg",
+          "https://c.saavncdn.com/artists/Arijit_Singh_004_20241118063717_500x500.jpg",
       },
       {
         id: 3,
         artist: "Jasmine Sandlas",
-        coverImg: "https://c.saavncdn.com/artists/Jasmine_Sandlas_500x500.jpg",
+        coverImg:
+          "https://c.saavncdn.com/artists/Jasmine_Sandlas_002_20240314115630_500x500.jpg",
       },
       {
         id: 4,
         artist: "Hanumankind",
         coverImg:
-          "https://c.saavncdn.com/artists/Hanumankind_20240805114758_500x500.jpg",
+          "https://c.saavncdn.com/artists/Hanumankind_001_20250313025806_500x500.jpg",
       },
       {
         id: 5,
         artist: "Sonu Nigam",
-        coverImg: "https://cdn.starclinch.in/artist/sonu-nigam/sonu-nigam.jpg",
+        coverImg: "https://c.saavncdn.com/artists/Sonu_Nigam_500x500.jpg",
       },
       {
         id: 6,
         artist: "B Praak",
         coverImg:
-          "https://c.saavncdn.com/artists/B_Praak_001_20221226063922_500x500.jpg",
+          "https://c.saavncdn.com/artists/B_Praak_001_20191118112005_500x500.jpg",
       },
       {
         id: 7,
         artist: "Jubin Nautiyal",
         coverImg:
-          "https://c.saavncdn.com/artists/Jubin_Nautiyal_20190912094004_500x500.jpg",
+          "https://c.saavncdn.com/artists/Jubin_Nautiyal_003_20231130204020_500x500.jpg",
       },
       {
         id: 8,
         artist: "Vishal Mishra",
         coverImg:
-          "https://c.saavncdn.com/artists/Vishal_Mishra_20210504071513_500x500.jpg",
+          "https://c.saavncdn.com/artists/Vishal_Mishra_005_20251120085316_500x500.jpg",
       },
       {
         id: 9,
         artist: "Shreya Ghoshal",
         coverImg:
-          "https://c.saavncdn.com/artists/Shreya_Ghoshal_004_20230412062730_500x500.jpg",
+          "https://c.saavncdn.com/artists/Shreya_Ghoshal_007_20241101074144_500x500.jpg",
       },
       {
         id: 10,
         artist: "Shilpa Rao",
         coverImg:
-          "https://c.saavncdn.com/artists/Shilpa_Rao_20190415072920_500x500.jpg",
+          "https://c.saavncdn.com/artists/Shilpa_Rao_002_20230321111415_500x500.jpg",
       },
     ],
   },
@@ -2362,7 +2363,8 @@ const CardData = [
         id: 52675,
         title: "Ishq Jalakar",
         description: "Ishq Jalakar - Dhurandhar",
-        artist: "Shashwat Sachdev, Shahzad Ali, Subhadeep Das Chowdhury, Armaan Khan",
+        artist:
+          "Shashwat Sachdev, Shahzad Ali, Subhadeep Das Chowdhury, Armaan Khan",
         coverImg:
           "https://pagalnew.com/coverimages/ishq-jalakar-dhurandhar-500-500.jpg",
         audioSrc: "https://pagalnew.com/128-downloads/52675",
