@@ -1837,18 +1837,18 @@ const CardData = [
     isPlayable: "album",
     items: [
       {
-        id: "album-border-2-2026",
-        name: "Border 2",
-        artist: "Various Artists",
-        coverImg:
-          "https://pagalnew.com/coverimages/album/border-2-2026-500-500.jpg",
-      },
-      {
         id: "album-baby-john4-2025",
         name: "Baby John4",
         artist: "Various Artists",
         coverImg:
           "https://pagalnew.com/coverimages/album/baby-john-2025-0302-500-500.jpg",
+      },
+      {
+        id: "album-border-2-2026",
+        name: "Border 2",
+        artist: "Various Artists",
+        coverImg:
+          "https://pagalnew.com/coverimages/album/border-2-2026-500-500.jpg",
       },
       {
         id: "album-chhaava-2025",
