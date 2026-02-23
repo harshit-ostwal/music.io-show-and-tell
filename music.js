@@ -337,7 +337,7 @@ const MusicData = [
     id: 7,
     artist: "Jubin Nautiyal",
     coverImg:
-      "https://c.saavncdn.com/artists/Jubin_Nautiyal_20190912094004_500x500.jpg",
+      "https://c.saavncdn.com/artists/Jubin_Nautiyal_003_20231130204020_500x500.jpg",
     songs: [
       {
         id: 51747,
@@ -399,7 +399,7 @@ const MusicData = [
     id: 8,
     artist: "Vishal Mishra",
     coverImg:
-      "https://c.saavncdn.com/artists/Vishal_Mishra_20210504071513_500x500.jpg",
+      "https://c.saavncdn.com/artists/Vishal_Mishra_005_20251120085316_500x500.jpg",
     songs: [
       {
         id: 51800,
@@ -461,7 +461,7 @@ const MusicData = [
     id: 9,
     artist: "Shreya Ghoshal",
     coverImg:
-      "https://c.saavncdn.com/artists/Shreya_Ghoshal_004_20230412062730_500x500.jpg",
+      "https://c.saavncdn.com/artists/Shreya_Ghoshal_007_20241101074144_500x500.jpg",
     songs: [
       {
         id: 50505,
@@ -514,7 +514,7 @@ const MusicData = [
     id: 10,
     artist: "Shilpa Rao",
     coverImg:
-      "https://c.saavncdn.com/artists/Shilpa_Rao_20190415072920_500x500.jpg",
+      "https://c.saavncdn.com/artists/Shilpa_Rao_002_20230321111415_500x500.jpg",
     songs: [
       {
         id: 52177,
