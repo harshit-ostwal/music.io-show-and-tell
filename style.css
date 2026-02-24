@@ -153,14 +153,21 @@ nav {
     & .center-left {
       border-radius: var(--borderRadiusXL);
       background: var(--secondary-color);
+      color: var(--text-color);
       padding: var(--padding);
+      border: none;
+      outline: none;
+      cursor: pointer;
     }
 
     & .center-right {
       background: var(--secondary-color);
+      color: var(--text-color);
       padding: var(--padding);
       border-radius: var(--borderRadiusXL);
       min-width: var(--max-w-xl);
+      border: none;
+      outline: none;
     }
   }
 
@@ -181,12 +188,16 @@ nav {
       display: flex;
       align-items: center;
       gap: var(--gapSm);
+      background: transparent;
+      color: var(--text-color);
     }
 
     & .notifications {
       display: flex;
       align-items: center;
       gap: var(--gapSm);
+      background: transparent;
+      color: var(--text-color);
     }
   }
 }
@@ -263,6 +274,9 @@ footer {
       }
 
       & .btn {
+        background: transparent;
+        color: var(--text-color);
+
         & span {
           display: block;
           align-items: center;
@@ -302,6 +316,11 @@ footer {
     justify-content: flex-end;
     align-items: center;
     gap: var(--gapSm);
+
+    & .btn {
+      background: transparent;
+      color: var(--text-color);
+    }
 
     & .btn span {
       display: block;
@@ -350,13 +369,14 @@ main {
   margin-top: 90px;
   margin-bottom: 106px;
   display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-template-areas: "left right";
+  grid-template-columns: 1fr;
+  grid-template-areas: "right";
   gap: var(--gap);
   overflow: hidden;
   padding: 0 var(--paddingSm);
 
   & .left {
+    display: none;
     grid-area: left;
     padding: var(--paddingMd);
     background-color: var(--secondary-color);
@@ -682,5 +702,254 @@ main {
         color: #1db954;
       }
     }
+  }
+}
+
+@media (max-width: 1280px) {
+  nav .center .center-right {
+    min-width: 340px;
+  }
+
+  footer .center .bottom .progress {
+    min-width: 340px;
+    max-width: 340px;
+  }
+}
+
+@media (max-width: 1024px) {
+  nav .center .center-right {
+    min-width: 220px;
+  }
+
+  nav .right .download-app {
+    display: none;
+  }
+
+  main {
+    grid-template-columns: 1fr;
+  }
+
+  footer .center .bottom .progress {
+    min-width: 240px;
+    max-width: 240px;
+  }
+
+  footer .right .volume .volume-bar {
+    min-width: 80px;
+    max-width: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  nav .center .center-right {
+    min-width: 160px;
+  }
+
+  nav .right .explore-premium {
+    display: none;
+  }
+
+  main {
+    grid-template-columns: 1fr;
+    grid-template-areas: "right";
+  }
+
+  main .left {
+    display: none;
+  }
+
+  footer .right .volume .volume-bar {
+    display: none;
+  }
+
+  footer .center .bottom .progress {
+    min-width: 200px;
+    max-width: 200px;
+  }
+
+  .fullscreen-overlay .fullscreen-content .fullscreen-art {
+    width: 280px;
+    height: 280px;
+  }
+}
+
+@media (max-width: 640px) {
+  nav {
+    height: 64px;
+    padding: var(--paddingSm) var(--padding);
+  }
+
+  nav .left {
+    flex: 0 0 auto;
+  }
+
+  nav .left h3 {
+    font-size: 20px;
+    white-space: nowrap;
+  }
+
+  nav .center {
+    flex: 1;
+    min-width: 0;
+  }
+
+  nav .center .center-left {
+    display: none;
+  }
+
+  nav .center .center-right {
+    min-width: unset;
+    width: 100%;
+    flex: 1;
+    font-size: 14px;
+  }
+
+  nav .right {
+    flex: 0 0 auto;
+  }
+
+  nav .right .explore-premium,
+  nav .right .download-app {
+    display: none;
+  }
+
+  nav .right .notifications {
+    padding: var(--paddingSm);
+  }
+
+  main {
+    margin-top: 64px;
+    min-height: calc(100vh - 240px);
+    margin-bottom: 176px;
+    padding: 0 4px;
+  }
+
+  main .right {
+    padding: var(--padding);
+    gap: var(--gapSm);
+  }
+
+  main .right .section .section-container .section-content .song-img {
+    width: 150px;
+    height: 150px;
+  }
+
+  main .right .section .section-container .section-content .song-info p {
+    max-width: 150px;
+  }
+
+  /* ── Mobile footer: 2-row layout ── */
+  footer {
+    flex-wrap: wrap;
+    height: auto;
+    align-content: flex-start;
+    padding: var(--paddingSm) var(--padding);
+    gap: var(--gapSm);
+  }
+
+  footer .left {
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: unset;
+    align-items: center;
+    gap: var(--gapSm);
+    cursor: pointer;
+    overflow: hidden;
+    order: 1;
+  }
+
+  footer .left img {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--borderRadiusSm);
+    flex-shrink: 0;
+  }
+
+  footer .left .left-content h6 {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+  }
+
+  footer .left .left-content p {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+  }
+
+  footer .right {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    order: 2;
+  }
+
+  footer .right .volume .volume-bar {
+    display: none;
+  }
+
+  /* controls + progress take full second row */
+  footer .center {
+    flex: 0 0 100%;
+    width: 100%;
+    order: 3;
+  }
+
+  footer .center .bottom .progress {
+    flex: 1;
+    min-width: unset;
+    max-width: unset;
+  }
+
+  .fullscreen-overlay .fullscreen-content {
+    gap: var(--gap);
+    padding: var(--padding);
+  }
+
+  .fullscreen-overlay .fullscreen-content .fullscreen-art {
+    width: 220px;
+    height: 220px;
+  }
+
+  .fullscreen-overlay .fullscreen-content .fullscreen-controls .btn span {
+    font-size: 22px;
+  }
+
+  .fullscreen-overlay .fullscreen-content .fullscreen-controls .fs-play {
+    width: 52px;
+    height: 52px;
+  }
+
+  .fullscreen-overlay .fullscreen-content .fullscreen-controls .fs-play span {
+    font-size: 34px !important;
+  }
+
+  .fullscreen-overlay .fullscreen-content .fullscreen-info .fullscreen-text h3 {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 400px) {
+  nav .left h3 {
+    font-size: 17px;
+  }
+
+  nav .center .center-right {
+    font-size: 13px;
+    padding: var(--paddingSm);
+  }
+
+  footer .center .top .btn span {
+    font-size: 20px;
+  }
+
+  .fullscreen-overlay .fullscreen-content .fullscreen-art {
+    width: 180px;
+    height: 180px;
   }
 }
